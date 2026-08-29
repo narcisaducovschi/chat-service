@@ -3,29 +3,29 @@ from fastapi import WebSocket
 
 class ConnectionManager:
     def __init__(self):
-        # cada sala (str) mapea a una lista de conexiones activas en esa sala
-        self.rooms: dict[str, list[WebSocket]] = {}
+        self.rooms: dict[str, dict[WebSocket, str]] = {}
 
-    async def connect(self, websocket: WebSocket, room: str):
+    async def connect(self, websocket: WebSocket, room: str, email: str):
         await websocket.accept()
         if room not in self.rooms:
-            self.rooms[room] = []
-        self.rooms[room].append(websocket)
+            self.rooms[room] = {}
+        self.rooms[room][websocket] = email
 
     def disconnect(self, websocket: WebSocket, room: str):
         if room in self.rooms and websocket in self.rooms[room]:
-            self.rooms[room].remove(websocket)
+            del self.rooms[room][websocket]
             if not self.rooms[room]:
-                del self.rooms[room]  # limpiamos salas vacías
+                del self.rooms[room]
 
-    async def broadcast_to_room(self, room: str, message: str):
+    async def broadcast_to_room(self, room: str, message: str, exclude: WebSocket = None):
         if room not in self.rooms:
             return
         for connection in self.rooms[room]:
-            await connection.send_text(message)
+            if connection != exclude:
+                await connection.send_text(message)
 
-    def users_in_room(self, room: str) -> int:
-        return len(self.rooms.get(room, []))
+    def get_users_in_room(self, room: str) -> list[str]:
+        return list(self.rooms.get(room, {}).values())
 
 
 manager = ConnectionManager()

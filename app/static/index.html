@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Service</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="center-screen">
+        <div class="card" id="login-card">
+            <h1>Iniciar sesión</h1>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <div id="login-message"></div>
+        </div>
+
+        <div class="card" id="room-card" style="display: none;">
+            <h1>Elige una sala</h1>
+            <form id="room-form">
+                <input type="text" id="room-name" placeholder="Nombre de la sala (ej: general)" required>
+                <button type="submit">Entrar a la sala</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

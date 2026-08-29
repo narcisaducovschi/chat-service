@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sala de chat</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="chat-layout">
+        <div class="sidebar">
+            <h2>Conectados</h2>
+            <div id="user-list"></div>
+        </div>
+        <div class="chat-main">
+            <div class="chat-header">
+                <strong id="room-title">Sala</strong>
+                <button id="leave-btn" style="width: auto; padding: 0.4rem 0.8rem;">Salir</button>
+            </div>
+            <div class="messages" id="messages"></div>
+            <div class="typing-indicator" id="typing-indicator"></div>
+            <div class="chat-input">
+                <input type="text" id="message-input" placeholder="Escribe un mensaje...">
+                <button id="send-btn">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
